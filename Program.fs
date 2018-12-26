@@ -3,16 +3,16 @@
 open System
 open Model
 
+let playGame = 
+    start
+    |> play { Position = { Vertical = VerticalPosition.Top; Horizontal = HorizontalPosition.Left }; Player = Player.X }
+    |> play { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Center }; Player = Player.O }
+    |> play { Position = { Vertical = VerticalPosition.Bottom; Horizontal = HorizontalPosition.Left }; Player = Player.X }
+    |> play { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Left }; Player = Player.O }
+
+
 [<EntryPoint>]
 let main argv =
-    let game = start
-    printfn "%A" game
-    let s1 = play game { Position = { Vertical = VerticalPosition.Top; Horizontal = HorizontalPosition.Left }; Player = Player.X }
-    printfn "%A" s1
-    let s2 = play s1 { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Center }; Player = Player.O }
-    printfn "%A" s2
-    let s3 = play s2 { Position = { Vertical = VerticalPosition.Bottom; Horizontal = HorizontalPosition.Left }; Player = Player.X }
-    printfn "%A" s3
-    let s4 = play s3 { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Left }; Player = Player.O }
-    printfn "%A" s4
+    let playedGame = playGame
+    printfn "%A" playedGame
     0 // return an integer exit code
