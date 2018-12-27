@@ -8,13 +8,11 @@ type Position = {
     Horizontal: HorizontalPosition
 }
 
-type Player = 
-    | X 
-    | O
+type Player = X | O
 
 type FieldState = 
     | Empty 
-    | Player of Player
+    | Settled of Player
 
 type Move = {
     Player: Player
@@ -24,7 +22,7 @@ type Move = {
 type Board = Map<Position, FieldState>
 
 let play (board: Board) (move: Move) =
-    Map.add move.Position (Player move.Player) board
+    Map.add move.Position (Settled move.Player) board
 
 let createPosition v h =
     (v, h)
