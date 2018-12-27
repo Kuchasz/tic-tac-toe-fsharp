@@ -30,9 +30,9 @@ type Board = {
     Fields: Field list
 }
 
-let play move board =
+let play board move =
     let playedField = { FieldState = Player move.Player; Position = move.Position }
-    { Fields = Seq.append board.Fields [playedField] |> Seq.toList }
+    { Fields = board.Fields @ [playedField] }
 
 let start = 
     { Fields = []}

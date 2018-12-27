@@ -1,18 +1,17 @@
-﻿// Learn more about F# at http://fsharp.org
+﻿open Model
 
-open System
-open Model
+let moves = [|
+    { Position = { Vertical = VerticalPosition.Top; Horizontal = HorizontalPosition.Left }; Player = Player.X }
+    { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Center }; Player = Player.O }
+    { Position = { Vertical = VerticalPosition.Bottom; Horizontal = HorizontalPosition.Left }; Player = Player.X }
+    { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Left }; Player = Player.O }
+|]
 
 let playGame = 
-    start
-    |> play { Position = { Vertical = VerticalPosition.Top; Horizontal = HorizontalPosition.Left }; Player = Player.X }
-    |> play { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Center }; Player = Player.O }
-    |> play { Position = { Vertical = VerticalPosition.Bottom; Horizontal = HorizontalPosition.Left }; Player = Player.X }
-    |> play { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Left }; Player = Player.O }
-
+    moves |> Array.fold play start
 
 [<EntryPoint>]
 let main argv =
     let playedGame = playGame
     printfn "%A" playedGame
-    0 // return an integer exit code
+    0
