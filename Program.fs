@@ -1,14 +1,14 @@
 ﻿open Model
 
-let moves = [|
+let moves = [
     { Position = { Vertical = VerticalPosition.Top; Horizontal = HorizontalPosition.Left }; Player = Player.X }
     { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Center }; Player = Player.O }
     { Position = { Vertical = VerticalPosition.Bottom; Horizontal = HorizontalPosition.Left }; Player = Player.X }
     { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Left }; Player = Player.O }
-|]
+]
 
 let playGame = 
-    moves |> Array.fold play start
+    moves |> Seq.fold play start
 
 [<EntryPoint>]
 let main argv =
