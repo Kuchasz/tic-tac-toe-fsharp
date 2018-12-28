@@ -21,17 +21,17 @@ type Move = {
 
 type Board = Map<Position, FieldState>
 
-let play (board: Board) (move: Move) =
-    Map.add move.Position (Settled move.Player) board
+let play (board: Board) move =
+    match board.Item move.Position with
+    | Empty -> Map.add move.Position (Settled move.Player) board
+    | Settled _ -> board
 
-let createPosition v h =
-    (v, h)
+let createEmptyField v h =
+    ({Vertical = v; Horizontal = h}, Empty)
 
 let createEmptyBoard =
-    [createPosition VerticalPosition.Top; createPosition VerticalPosition.Center; createPosition VerticalPosition.Bottom]
-        |> Seq.map (fun v -> [v Left; v Center; v Right]) 
-        |> Seq.fold Seq.append Seq.empty
-        |> Seq.map (fun (v, h) -> ({Vertical = v; Horizontal = h}, Empty))
+    [VerticalPosition.Top; VerticalPosition.Center; VerticalPosition.Bottom]
+        |> Seq.collect (fun v -> [Left; Center; Right] |> Seq.map (createEmptyField v)) 
         |> Map.ofSeq
 
 let start = createEmptyBoard
