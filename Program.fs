@@ -7,8 +7,8 @@ let moves = [
     { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Left }; Player = Player.O }
 ]
 
-let playGame = 
-    moves |> Seq.fold play start
+let playGame: Result<Board, string> = 
+    moves |> Seq.fold (fun acc item -> (bind (play item)) acc)  start
 
 [<EntryPoint>]
 let main argv =
