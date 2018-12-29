@@ -46,14 +46,12 @@ let validatePreviousPlayer ((board: Board), (move: Move)) =
     | false -> Success (board, move)    
     | true -> Failure "Player already played"
 
-let validation twoTrackInput = 
-    twoTrackInput
-    >>= validatePositionEmptyness
+let validation (board, move) = 
+    validatePositionEmptyness (board, move)
     >>= validatePreviousPlayer
 
 let play move (board: Board) =
-    let validationInput = Success (board, move)
-    match validation validationInput with
+    match validation (board, move) with
     | Success (board, move) -> Success { LastPlayer = (Some move.Player); Map = (Map.add move.Position (Settled move.Player) board.Map)}
     | Failure f -> Failure f
 
