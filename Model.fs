@@ -27,43 +27,43 @@ type Move = {
     Position: Position
 }
 
-type Board = {
+type Game = {
     Map: Map<Position, FieldState>
     LastPlayer: Player option
     Status: GameStatus
 }
 
-let validatePositionEmptyness ((board: Board), (move: Move)) = 
-    match board.Map.Item move.Position with
-    | Empty -> Success (board, move)    
+let validatePositionEmptyness ((game: Game), (move: Move)) = 
+    match game.Map.Item move.Position with
+    | Empty -> Success (game, move)    
     | _ -> Failure "Position already settled up"
 
-let validatePreviousPlayer ((board: Board), (move: Move)) = 
-    match board.LastPlayer = Some move.Player with
-    | false -> Success (board, move)    
+let validatePreviousPlayer ((game: Game), (move: Move)) = 
+    match game.LastPlayer = Some move.Player with
+    | false -> Success (game, move)    
     | true -> Failure "Player already played"
 
-let validateGameCanProceed ((board: Board), (move: Move)) = 
-    match board.Status with
-    | Init -> Success (board, move)    
-    | InProgress -> Success (board, move)
+let validateGameCanProceed ((game: Game), (move: Move)) = 
+    match game.Status with
+    | Init -> Success (game, move)    
+    | InProgress -> Success (game, move)
     | Strike -> Failure "Game already ended with strike"
     | Won player -> Failure (sprintf "Game already won by %A" player)
 
-let validation (board, move) = 
-    validatePositionEmptyness (board, move)
+let validation (game, move) = 
+    validatePositionEmptyness (game, move)
     >>= validatePreviousPlayer
     >>= validateGameCanProceed
 
-let play move (board: Board) =
-    match validation (board, move) with
-    | Success (board, move) -> Success { board with LastPlayer = (Some move.Player); Map = (Map.add move.Position (Settled move.Player) board.Map)}
+let play move (game: Game) =
+    match validation (game, move) with
+    | Success (game, move) -> Success { game with LastPlayer = (Some move.Player); Map = (Map.add move.Position (Settled move.Player) game.Map)}
     | Failure f -> Failure f
 
 let createEmptyField v h =
     ({Vertical = v; Horizontal = h}, Empty)
 
-let createEmptyBoard: Result<Board, string> =
+let createEmptyGame: Result<Game, string> =
     let boardMap = 
         [VerticalPosition.Top; VerticalPosition.Center; VerticalPosition.Bottom]
             |> Seq.collect (fun v -> [Left; Center; Right] |> Seq.map (createEmptyField v)) 
@@ -71,4 +71,4 @@ let createEmptyBoard: Result<Board, string> =
 
     Success ({ Status = Init; Map = boardMap; LastPlayer = None})
 
-let start = createEmptyBoard
+let start = createEmptyGame
