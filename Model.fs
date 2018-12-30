@@ -12,6 +12,12 @@ type Position = {
 
 type Player = X | O
 
+type GameStatus = 
+    | Init 
+    | InProgress 
+    | Strike 
+    | Won of Player
+
 type FieldState = 
     | Empty 
     | Settled of Player
@@ -24,6 +30,7 @@ type Move = {
 type Board = {
     Map: Map<Position, FieldState>
     LastPlayer: Player option
+    Status: GameStatus
 }
 
 let validatePositionEmptyness ((board: Board), (move: Move)) = 
@@ -36,13 +43,20 @@ let validatePreviousPlayer ((board: Board), (move: Move)) =
     | false -> Success (board, move)    
     | true -> Failure "Player already played"
 
+let validateGameCanProceed ((board: Board), (move: Move)) = 
+    match board.Status with
+    | Init -> Success (board, move)    
+    | InProgress -> Success (board, move)
+    | Strike -> Failure "Game already ended with strike"
+    | Won player -> Failure (sprintf "Game already won by %A" player)
+
 let validation (board, move) = 
     validatePositionEmptyness (board, move)
     >>= validatePreviousPlayer
 
 let play move (board: Board) =
     match validation (board, move) with
-    | Success (board, move) -> Success { LastPlayer = (Some move.Player); Map = (Map.add move.Position (Settled move.Player) board.Map)}
+    | Success (board, move) -> Success { board with LastPlayer = (Some move.Player); Map = (Map.add move.Position (Settled move.Player) board.Map)}
     | Failure f -> Failure f
 
 let createEmptyField v h =
@@ -54,6 +68,6 @@ let createEmptyBoard: Result<Board, string> =
             |> Seq.collect (fun v -> [Left; Center; Right] |> Seq.map (createEmptyField v)) 
             |> Map.ofSeq
 
-    Success ({ Map = boardMap; LastPlayer = None})
+    Success ({ Status = Init; Map = boardMap; LastPlayer = None})
 
 let start = createEmptyBoard
