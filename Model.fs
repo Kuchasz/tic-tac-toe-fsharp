@@ -55,9 +55,12 @@ let validation (game, move) =
     >>= validatePreviousPlayer
     >>= validateGameCanProceed
 
+let settlePlayer boardMap (position: Position) player =
+    Map.add position (Settled player) boardMap
+
 let play move (game: Game) =
     match validation (game, move) with
-    | Success (game, move) -> Success { game with LastPlayer = (Some move.Player); Map = (Map.add move.Position (Settled move.Player) game.Map)}
+    | Success (game, move) -> Success { game with LastPlayer = (Some move.Player); Map = settlePlayer game.Map move.Position move.Player}
     | Failure f -> Failure f
 
 let createEmptyField v h =
