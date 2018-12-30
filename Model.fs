@@ -53,6 +53,7 @@ let validateGameCanProceed ((board: Board), (move: Move)) =
 let validation (board, move) = 
     validatePositionEmptyness (board, move)
     >>= validatePreviousPlayer
+    >>= validateGameCanProceed
 
 let play move (board: Board) =
     match validation (board, move) with
