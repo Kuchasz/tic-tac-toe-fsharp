@@ -1,5 +1,5 @@
-﻿open Model
-
+﻿open SimpleFp
+open Model
 let moves = [
     { Position = { Vertical = VerticalPosition.Top; Horizontal = HorizontalPosition.Left }; Player = Player.X }
     { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Center }; Player = Player.O }
