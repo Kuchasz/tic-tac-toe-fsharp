@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="SimpleFp.fs" />
+    <Compile Include="Tools/Functional.fs" />
     <Compile Include="Domain/Player.fs" />
     <Compile Include="Domain/Lobby.fs" />
     <Compile Include="Domain/Game.fs" />
