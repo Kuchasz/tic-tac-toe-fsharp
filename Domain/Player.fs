@@ -1,2 +1,3 @@
 module Player 
-type Player = X | O
+
+type PlayerId = PlayerId of string

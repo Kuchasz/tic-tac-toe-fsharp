@@ -11,24 +11,31 @@ type Position = {
     Horizontal: HorizontalPosition
 }
 
+type PlayerDesignation = X | O
+
+type GamePlayer = {
+    Designation: PlayerDesignation
+    PlayerId: PlayerId
+}
+
 type GameStatus = 
     | Init 
     | InProgress 
     | Strike 
-    | Won of Player
+    | Won of GamePlayer
 
 type FieldState = 
     | Empty 
-    | Settled of Player
+    | Settled of GamePlayer
 
 type Move = {
-    Player: Player
+    Player: GamePlayer
     Position: Position
 }
 
 type Game = {
     Map: Map<Position, FieldState>
-    LastPlayer: Player option
+    LastPlayer: GamePlayer option
     Status: GameStatus
 }
 
