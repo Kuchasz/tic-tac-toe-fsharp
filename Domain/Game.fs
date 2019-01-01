@@ -1,7 +1,7 @@
-module Game
+module Domain.Game
 
-open SimpleFp
-open Player
+open Tools.Functional
+open Domain.Player
 
 type VerticalPosition = Top | Center | Bottom
 type HorizontalPosition = Left | Center | Right

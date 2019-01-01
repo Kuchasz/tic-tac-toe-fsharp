@@ -1,6 +1,6 @@
-﻿open SimpleFp
-open Game
-open Player
+﻿open Tools.Functional
+open Domain.Game
+open Domain.Player
 
 let playerX = { Designation = PlayerDesignation.X; PlayerId = (PlayerId "000000-0000-0000-000000") }
 let playerO = { Designation = PlayerDesignation.O; PlayerId = (PlayerId "000000-0000-0000-000001") }

@@ -1,6 +1,6 @@
-module Player 
+module Domain.Player 
 
-open SimpleFp
+open Tools.Functional
 
 type PlayerId = PlayerId of string
 

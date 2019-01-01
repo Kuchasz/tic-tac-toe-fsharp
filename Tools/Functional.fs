@@ -1,4 +1,4 @@
-module SimpleFp
+module Tools.Functional
 
 type Result<'TSuccess, 'TFailure> =
     | Success of 'TSuccess

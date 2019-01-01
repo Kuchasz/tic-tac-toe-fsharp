@@ -1,7 +1,7 @@
-module Lobby
+module Domain.Lobby
 
-open SimpleFp
-open Player
+open Tools.Functional
+open Domain.Player
 
 let join planerName =
     match createPlayerName planerName with
