@@ -1,6 +1,7 @@
-module Model
+module Game
 
 open SimpleFp
+open Player
 
 type VerticalPosition = Top | Center | Bottom
 type HorizontalPosition = Left | Center | Right
@@ -9,8 +10,6 @@ type Position = {
     Vertical: VerticalPosition
     Horizontal: HorizontalPosition
 }
-
-type Player = X | O
 
 type GameStatus = 
     | Init 

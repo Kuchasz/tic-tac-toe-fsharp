@@ -1,5 +1,5 @@
 ﻿open SimpleFp
-open Model
+open Game
 let moves = [
     { Position = { Vertical = VerticalPosition.Top; Horizontal = HorizontalPosition.Left }; Player = Player.X }
     { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Center }; Player = Player.O }
@@ -7,7 +7,7 @@ let moves = [
     { Position = { Vertical = VerticalPosition.Center; Horizontal = HorizontalPosition.Left }; Player = Player.O }
 ]
 
-let playGame: Result<Board, string> = 
+let playGame: Result<Game, string> = 
     moves |> Seq.fold (fun acc item -> (bind (play item)) acc)  start
 
 [<EntryPoint>]
