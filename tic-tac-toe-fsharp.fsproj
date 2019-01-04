@@ -7,8 +7,8 @@
   <ItemGroup>
     <Compile Include="Tools/Functional.fs" />
     <Compile Include="Domain/Player.fs" />
-    <Compile Include="Domain/Lobby.fs" />
     <Compile Include="Domain/Game.fs" />
+    <Compile Include="Domain/Lobby.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 </Project>
