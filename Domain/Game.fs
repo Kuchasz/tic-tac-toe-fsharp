@@ -72,6 +72,8 @@ let play move (game: Game) =
 let createEmptyField v h =
     ({Vertical = v; Horizontal = h}, Empty)
 
+//F(x).map(f) === F(f).ap(F(x))
+
 let createEmptyGame: Result<Game, string> =
     let boardMap = 
         [VerticalPosition.Top; VerticalPosition.Center; VerticalPosition.Bottom]
